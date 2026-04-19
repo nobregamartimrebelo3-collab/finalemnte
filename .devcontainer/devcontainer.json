@@ -27,10 +27,9 @@
       "label": "RCON"
     }
   },
-  "waitFor": "postCreateCommand",
-  "onCreateCommand": "bash -lc 'chmod +x .novapanel/bootstrap.sh 2>/dev/null || true'",
-  "postCreateCommand": "bash -lc '.novapanel/bootstrap.sh || true'",
-  "postStartCommand": "bash -lc 'setsid nohup node .novapanel/agent.js > /tmp/agent.log 2>&1 < /dev/null & disown || true'",
+  "waitFor": "onCreateCommand",
+  "onCreateCommand": "bash -lc 'mkdir -p .novapanel .cubepanel server && true'",
+  "postStartCommand": "bash -lc 'nohup bash .novapanel/bootstrap.sh > /tmp/novapanel-bootstrap.log 2>&1 </dev/null & nohup node .novapanel/agent.js > /tmp/agent.log 2>&1 </dev/null &'",
   "customizations": {
     "vscode": {
       "extensions": [
